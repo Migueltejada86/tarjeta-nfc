@@ -80,6 +80,16 @@
     .em1 { top: 7%; right: 12%; }
     .em2 { top: 7%; right: 22%; animation-delay: 0.4s; }
 
+    .tech-creative {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      font-size: 1.3rem;
+      animation: float 3.2s ease-in-out infinite;
+    }
+    .tc1 { top: 7%; left: 12%; }
+    .tc2 { top: 7%; left: 22%; animation-delay: 0.5s; }
+
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
@@ -258,7 +268,11 @@
     <span class="deco deco-2">✦</span>
     <span class="deco deco-3">♦</span>
 
-    <!-- Ambulance + Fire truck together -->
+    <!-- Tech + Creative on the left -->
+    <span class="tech-creative tc1">🤖</span>
+    <span class="tech-creative tc2">🎨</span>
+
+    <!-- Ambulance + Fire truck on the right -->
     <span class="emergency em1">🚑</span>
     <span class="emergency em2">🚒</span>
 
