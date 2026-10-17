@@ -40,7 +40,7 @@
       overflow: hidden;
     }
 
-    /* Matrix canvas */
+    /* Matrix canvas - more visible */
     #matrix {
       position: absolute;
       top: 0;
@@ -48,7 +48,7 @@
       width: 100%;
       height: 100%;
       z-index: 0;
-      opacity: 0.25;
+      opacity: 0.55;
       pointer-events: none;
     }
 
@@ -111,11 +111,11 @@
     }
 
     .subtitle {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: var(--muted);
       font-weight: 500;
       margin-bottom: 0.75rem;
-      line-height: 1.35;
+      line-height: 1.4;
       position: relative;
       z-index: 2;
     }
@@ -228,7 +228,7 @@
     <img class="avatar" src="https://raw.githubusercontent.com/Migueltejada86/tarjeta-nfc/main/profile.jpg" alt="Miguel Angel Tejada">
 
     <h1>Miguel Angel Tejada</h1>
-    <div class="subtitle">Diseño, video, IA, automatización, música y código</div>
+    <div class="subtitle">Python Developer · AI Engineer<br>Full Stack · Cybersecurity</div>
 
     <div class="tags">
       <span class="tag">Python · AI</span>
@@ -271,34 +271,37 @@
     function resize() {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
     }
     resize();
     window.addEventListener('resize', resize);
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
-    const fontSize = 12;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/\\';
+    const fontSize = 13;
     let columns = Math.floor(canvas.width / fontSize);
     let drops = Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(20, 20, 24, 0.15)';
+      // More visible trail
+      ctx.fillStyle = 'rgba(20, 20, 24, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#3a9bdc';
-      ctx.font = fontSize + 'px monospace';
+      ctx.fillStyle = '#4ade80'; // brighter green
+      ctx.font = 'bold ' + fontSize + 'px monospace';
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.96) {
           drops[i] = 0;
         }
         drops[i]++;
       }
     }
 
-    setInterval(draw, 55);
+    setInterval(draw, 40);
   </script>
 </body>
 </html>
