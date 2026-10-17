@@ -4,22 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Miguel Angel Tejada · NFC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a12;
-      --card: #12121a;
-      --neon: #a855f7;
-      --cyan: #22d3ee;
-      --yellow: #facc15;
+      --bg: #0d0618;
+      --card: #140a22;
       --pink: #ff2a6d;
-      --text: #f8f8ff;
-      --muted: #a1a1b5;
+      --purple: #c026d3;
+      --cyan: #22d3ee;
+      --orange: #ff6b35;
+      --text: #ffffff;
+      --muted: #c4b5fd;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: 'Rajdhani', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -28,173 +29,174 @@
       justify-content: center;
       padding: 1.2rem;
       background-image:
-        radial-gradient(circle at 15% 20%, rgba(168,85,247,0.15) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(34,211,238,0.12) 0%, transparent 45%);
+        radial-gradient(circle at 20% 30%, rgba(255,42,109,0.18) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(192,38,211,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(255,107,53,0.1) 0%, transparent 50%);
     }
 
     .card {
-      background: linear-gradient(160deg, #161622 0%, #0e0e16 100%);
-      border: 1px solid rgba(168,85,247,0.25);
-      border-radius: 24px;
-      padding: 2rem 1.4rem 1.6rem;
+      background: linear-gradient(165deg, #1a0b2e 0%, #0f0718 100%);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      border-radius: 28px;
+      padding: 2.1rem 1.4rem 1.7rem;
       width: 100%;
       max-width: 370px;
       text-align: center;
       position: relative;
-      box-shadow: 0 0 40px rgba(168,85,247,0.15), 0 12px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 0 60px rgba(255,42,109,0.25), 0 20px 50px rgba(0,0,0,0.6);
       overflow: hidden;
     }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--cyan));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
 
-    /* Decorative shapes + fire */
     .deco {
       position: absolute;
       pointer-events: none;
       z-index: 1;
       user-select: none;
     }
-    .deco-1 { top: 8px; left: 10px; font-size: 1.6rem; opacity: 0.5; color: var(--yellow); animation: float 4s ease-in-out infinite; }
-    .deco-2 { bottom: 40px; right: 8px; font-size: 1.5rem; opacity: 0.45; color: var(--cyan); transform: rotate(15deg); animation: float 5s ease-in-out infinite reverse; }
-    .deco-3 { top: 35%; left: 6px; font-size: 1.2rem; opacity: 0.4; color: var(--pink); animation: float 3.5s ease-in-out infinite; }
-    .deco-4 { top: 18%; right: 12px; font-size: 1.1rem; opacity: 0.4; color: var(--neon); animation: float 4.5s ease-in-out infinite reverse; }
-    .deco-5 { bottom: 18%; left: 14px; font-size: 1.3rem; opacity: 0.35; color: var(--yellow); animation: float 5.5s ease-in-out infinite; }
+    .deco-1 { top: 12px; left: 14px; font-size: 1.5rem; opacity: 0.6; color: var(--pink); animation: float 4s ease-in-out infinite; }
+    .deco-2 { bottom: 50px; right: 10px; font-size: 1.4rem; opacity: 0.5; color: var(--cyan); animation: float 5s ease-in-out infinite reverse; }
+    .deco-3 { top: 40%; left: 8px; font-size: 1.1rem; opacity: 0.45; color: var(--orange); animation: float 3.5s ease-in-out infinite; }
 
     .fire {
       position: absolute;
       pointer-events: none;
       z-index: 1;
-      font-size: 1.3rem;
-      animation: flicker 2.8s ease-in-out infinite;
+      font-size: 1.25rem;
+      animation: flicker 2.5s ease-in-out infinite;
     }
-    .f1 { top: 10%; right: 16%; animation-delay: 0s; }
-    .f2 { bottom: 32%; left: 8%; animation-delay: 0.8s; }
-    .f3 { top: 48%; right: 6%; animation-delay: 1.5s; }
-    .f4 { bottom: 12%; right: 20%; animation-delay: 0.4s; }
+    .f1 { top: 8%; right: 14%; }
+    .f2 { bottom: 28%; left: 10%; animation-delay: 0.7s; }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+      50% { transform: translateY(-7px); }
     }
     @keyframes flicker {
-      0%, 100% { opacity: 0.6; transform: scale(1) translateY(0); }
-      30% { opacity: 1; transform: scale(1.15) translateY(-3px); }
-      60% { opacity: 0.7; transform: scale(0.95) translateY(1px); }
+      0%, 100% { opacity: 0.55; transform: scale(1); }
+      40% { opacity: 1; transform: scale(1.2); }
+      70% { opacity: 0.7; transform: scale(0.9); }
     }
 
     .avatar-wrap {
       position: relative;
       display: inline-block;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
       z-index: 2;
     }
     .avatar {
-      width: 100px;
-      height: 100px;
+      width: 104px;
+      height: 104px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid transparent;
-      background: linear-gradient(var(--card), var(--card)) padding-box,
-                  linear-gradient(135deg, var(--neon), var(--cyan)) border-box;
-      box-shadow: 0 0 20px rgba(168,85,247,0.4);
+      border: 3px solid var(--pink);
+      box-shadow: 0 0 25px rgba(255,42,109,0.6);
     }
     .avatar-wrap::after {
       content: '★';
       position: absolute;
-      top: -6px;
-      right: -4px;
-      font-size: 1.2rem;
-      color: var(--yellow);
-      text-shadow: 0 0 8px var(--yellow);
+      top: -8px;
+      right: -6px;
+      font-size: 1.3rem;
+      color: var(--orange);
+      text-shadow: 0 0 10px var(--orange);
     }
 
-    /* ECG Wave - proper PQRST */
     .ecg {
       width: 100%;
-      height: 42px;
-      margin: 0.3rem 0 0.6rem;
+      height: 40px;
+      margin: 0.4rem 0 0.7rem;
       position: relative;
       z-index: 2;
     }
-    .ecg svg {
-      width: 100%;
-      height: 100%;
-    }
+    .ecg svg { width: 100%; height: 100%; }
     .ecg-line {
       fill: none;
       stroke: var(--cyan);
-      stroke-width: 1.7;
+      stroke-width: 2;
       stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 0 4px var(--cyan));
+      filter: drop-shadow(0 0 6px var(--cyan));
       stroke-dasharray: 480;
       stroke-dashoffset: 480;
-      animation: ecgDraw 3.2s ease-in-out infinite;
+      animation: ecgDraw 3s ease-in-out infinite;
     }
     @keyframes ecgDraw {
-      0% { stroke-dashoffset: 480; opacity: 0.3; }
-      15% { opacity: 1; }
+      0% { stroke-dashoffset: 480; opacity: 0.4; }
+      20% { opacity: 1; }
       75% { stroke-dashoffset: 0; opacity: 1; }
-      100% { stroke-dashoffset: 0; opacity: 0.15; }
+      100% { stroke-dashoffset: 0; opacity: 0.2; }
     }
 
     h1 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.35rem;
-      background: linear-gradient(90deg, #fff 0%, var(--cyan) 100%);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(90deg, #fff, var(--pink), var(--cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-shadow: 0 0 20px rgba(255,42,109,0.4);
       position: relative;
       z-index: 2;
     }
 
     .subtitle {
-      font-size: 0.82rem;
-      color: #e2e2ef;
-      line-height: 1.5;
-      margin-bottom: 0.85rem;
+      font-size: 0.85rem;
+      color: #e9d5ff;
+      line-height: 1.45;
+      margin-bottom: 0.9rem;
       position: relative;
       z-index: 2;
     }
-    .subtitle span {
-      color: var(--cyan);
-      font-weight: 500;
-    }
+    .subtitle span { color: var(--cyan); font-weight: 700; }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
       justify-content: center;
-      margin: 0.4rem 0 1rem;
+      margin: 0.5rem 0 1rem;
       position: relative;
       z-index: 2;
     }
-
     .tag {
-      background: rgba(168,85,247,0.15);
-      border: 1px solid rgba(168,85,247,0.35);
-      padding: 0.22rem 0.55rem;
+      background: rgba(255,42,109,0.15);
+      border: 1px solid rgba(255,42,109,0.4);
+      padding: 0.2rem 0.55rem;
       border-radius: 999px;
       font-size: 0.65rem;
-      color: #e0d4ff;
+      color: #fce7f3;
+      font-weight: 600;
     }
     .tag.cyan {
       background: rgba(34,211,238,0.12);
-      border-color: rgba(34,211,238,0.35);
+      border-color: rgba(34,211,238,0.4);
       color: #a5f3fc;
     }
-    .tag.yellow {
-      background: rgba(250,204,21,0.12);
-      border-color: rgba(250,204,21,0.35);
-      color: #fef08a;
+    .tag.orange {
+      background: rgba(255,107,53,0.15);
+      border-color: rgba(255,107,53,0.4);
+      color: #fed7aa;
     }
 
     .location {
       font-size: 0.8rem;
       color: var(--muted);
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.15rem;
       position: relative;
       z-index: 2;
     }
@@ -212,33 +214,32 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      padding: 0.75rem 1rem;
-      border-radius: 12px;
+      padding: 0.78rem 1rem;
+      border-radius: 14px;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 0.92rem;
       color: white;
       transition: all 0.2s ease;
-      border: none;
+      letter-spacing: 0.3px;
     }
-
     a.btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.1);
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.15);
     }
 
-    .btn-call { background: #22c55e; }
-    .btn-wa { background: #25d366; }
-    .btn-ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-    .btn-gh { background: #1f2937; border: 1px solid #374151; }
-    .btn-li { background: #0a66c2; }
-    .btn-mail { background: #4b5563; }
-    .btn-port { background: linear-gradient(90deg, var(--neon), #7c3aed); }
+    .btn-call { background: linear-gradient(90deg, #22c55e, #16a34a); }
+    .btn-wa { background: linear-gradient(90deg, #25d366, #128c7e); }
+    .btn-ig { background: linear-gradient(90deg, #f09433, #dc2743, #bc1888); }
+    .btn-gh { background: #1e1b2e; border: 1px solid #3f3a5a; }
+    .btn-li { background: linear-gradient(90deg, #0a66c2, #004182); }
+    .btn-mail { background: #3f3a5a; }
+    .btn-port { background: linear-gradient(90deg, var(--purple), var(--pink)); }
     .btn-yt { background: #ff0000; }
     .btn-save { background: linear-gradient(90deg, var(--pink), #ff4d8d); }
     .btn-soon {
       background: rgba(255,255,255,0.08);
-      color: var(--muted);
+      color: #a78bfa;
       border: 1px dashed rgba(255,255,255,0.2);
     }
     .btn-soon:hover { transform: none; }
@@ -246,9 +247,11 @@
     .soon-note { font-size: 0.65rem; opacity: 0.8; }
 
     .footer {
-      margin-top: 1.3rem;
+      margin-top: 1.2rem;
       font-size: 0.7rem;
       color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
       position: relative;
       z-index: 2;
     }
@@ -259,20 +262,14 @@
     <span class="deco deco-1">★</span>
     <span class="deco deco-2">✦</span>
     <span class="deco deco-3">♦</span>
-    <span class="deco deco-4">✹</span>
-    <span class="deco deco-5">☆</span>
 
-    <!-- Fire elements -->
-    <span class="fire f1">🔥</span>
+    <span class="fire f1">🚒</span>
     <span class="fire f2">🔥</span>
-    <span class="fire f3">🔥</span>
-    <span class="fire f4">🔥</span>
 
     <div class="avatar-wrap">
       <img class="avatar" src="https://raw.githubusercontent.com/Migueltejada86/tarjeta-nfc/main/profile.jpg" alt="Miguel Angel Tejada">
     </div>
 
-    <!-- ECG Wave - proper PQRST under avatar -->
     <div class="ecg">
       <svg viewBox="0 0 240 40" preserveAspectRatio="none">
         <path class="ecg-line" d="M0,22 L40,22 L48,18 L56,26 L64,22 L100,22 L108,8 L116,34 L124,22 L160,22 L168,14 L176,28 L184,22 L240,22" />
@@ -290,10 +287,10 @@
       <span class="tag">Python</span>
       <span class="tag cyan">AI · Data</span>
       <span class="tag">AppSec</span>
-      <span class="tag yellow">Arduino</span>
+      <span class="tag orange">Arduino</span>
       <span class="tag">Automatización</span>
       <span class="tag cyan">Flask · FastAPI</span>
-      <span class="tag yellow">Motion</span>
+      <span class="tag orange">Motion</span>
       <span class="tag">Música</span>
     </div>
 
@@ -318,7 +315,7 @@
       <a class="btn btn-save" href="miguel-tejada.vcf">💾 Guardar contacto</a>
     </div>
 
-    <div class="footer">Tarjeta NFC · Tech + Creativo</div>
+    <div class="footer">NFC · Vice City Vibes</div>
   </div>
 </body>
 </html>
