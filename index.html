@@ -50,15 +50,23 @@
       position: absolute;
       pointer-events: none;
       z-index: 1;
+      user-select: none;
     }
-    .deco-1 { top: -10px; left: -10px; font-size: 2rem; opacity: 0.4; color: var(--yellow); }
-    .deco-2 { bottom: 20px; right: -5px; font-size: 1.8rem; opacity: 0.35; color: var(--cyan); transform: rotate(15deg); }
-    .deco-3 { top: 40%; left: 8px; font-size: 1.4rem; opacity: 0.3; color: var(--pink); }
+    .deco-1 { top: 8px; left: 10px; font-size: 1.6rem; opacity: 0.5; color: var(--yellow); animation: float 4s ease-in-out infinite; }
+    .deco-2 { bottom: 40px; right: 8px; font-size: 1.5rem; opacity: 0.45; color: var(--cyan); transform: rotate(15deg); animation: float 5s ease-in-out infinite reverse; }
+    .deco-3 { top: 35%; left: 6px; font-size: 1.2rem; opacity: 0.4; color: var(--pink); animation: float 3.5s ease-in-out infinite; }
+    .deco-4 { top: 18%; right: 12px; font-size: 1.1rem; opacity: 0.4; color: var(--neon); animation: float 4.5s ease-in-out infinite reverse; }
+    .deco-5 { bottom: 18%; left: 14px; font-size: 1.3rem; opacity: 0.35; color: var(--yellow); animation: float 5.5s ease-in-out infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
 
     .avatar-wrap {
       position: relative;
       display: inline-block;
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.4rem;
       z-index: 2;
     }
     .avatar {
@@ -79,6 +87,36 @@
       font-size: 1.2rem;
       color: var(--yellow);
       text-shadow: 0 0 8px var(--yellow);
+    }
+
+    /* ECG Wave */
+    .ecg {
+      width: 100%;
+      height: 36px;
+      margin: 0.3rem 0 0.6rem;
+      position: relative;
+      z-index: 2;
+    }
+    .ecg svg {
+      width: 100%;
+      height: 100%;
+    }
+    .ecg-line {
+      fill: none;
+      stroke: var(--cyan);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 4px var(--cyan));
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: ecgDraw 2.8s ease-in-out infinite;
+    }
+    @keyframes ecgDraw {
+      0% { stroke-dashoffset: 400; opacity: 0.3; }
+      20% { opacity: 1; }
+      80% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0.2; }
     }
 
     h1 {
@@ -200,9 +238,18 @@
     <span class="deco deco-1">★</span>
     <span class="deco deco-2">✦</span>
     <span class="deco deco-3">♦</span>
+    <span class="deco deco-4">✹</span>
+    <span class="deco deco-5">☆</span>
 
     <div class="avatar-wrap">
       <img class="avatar" src="https://raw.githubusercontent.com/Migueltejada86/tarjeta-nfc/main/profile.jpg" alt="Miguel Angel Tejada">
+    </div>
+
+    <!-- ECG Wave under avatar -->
+    <div class="ecg">
+      <svg viewBox="0 0 200 30" preserveAspectRatio="none">
+        <path class="ecg-line" d="M0,15 L30,15 L35,5 L40,25 L45,15 L80,15 L85,8 L90,22 L95,15 L130,15 L135,4 L140,26 L145,15 L200,15" />
+      </svg>
     </div>
 
     <h1>Miguel Angel Tejada</h1>
