@@ -40,46 +40,16 @@
       overflow: hidden;
     }
 
-    /* Light sweep animation */
-    .card::before {
-      content: '';
+    /* Matrix canvas */
+    #matrix {
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 60%;
+      left: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(58, 155, 220, 0.08) 40%,
-        rgba(255, 255, 255, 0.18) 50%,
-        rgba(58, 155, 220, 0.08) 60%,
-        transparent 100%
-      );
-      animation: lightSweep 7s ease-in-out infinite;
+      z-index: 0;
+      opacity: 0.25;
       pointer-events: none;
-      z-index: 1;
-    }
-
-    @keyframes lightSweep {
-      0% {
-        left: -100%;
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      45% {
-        left: 140%;
-        opacity: 1;
-      }
-      55% {
-        opacity: 0;
-      }
-      100% {
-        left: 140%;
-        opacity: 0;
-      }
     }
 
     /* Sober 3D cube */
@@ -242,6 +212,8 @@
 </head>
 <body>
   <div class="card">
+    <canvas id="matrix"></canvas>
+
     <div class="cube-wrap">
       <div class="cube">
         <div class="front"></div>
@@ -291,5 +263,42 @@
       Tarjeta NFC
     </div>
   </div>
+
+  <script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+    const fontSize = 12;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(20, 20, 24, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#3a9bdc';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 55);
+  </script>
 </body>
 </html>
